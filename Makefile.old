@@ -1,0 +1,23 @@
+CC = gcc
+CFLAGS = -O2
+BASEDIR = ./
+LIBS = -lm
+
+clean: 
+	rm *.o
+
+all: FindCounts FindGenes
+	rm *.o
+
+FindCounts: 	FindCounts.o logreg.o nrutil.o sort.o ran1.o
+	$(CC) FindCounts.o logreg.o nrutil.o sort.o ran1.o -lm  -o FindCounts
+
+FindGenes: FindGenes.o logreg.o nrutil.o sort.o ran1.o
+	$(CC) FindGenes.o logreg.o nrutil.o sort.o ran1.o -lm  -o FindGenes
+
+nrutil.o: ./nrutil.h ./nrutil.c
+sort.o:  ./nrutil.h ./nrutil.c ./sort.c
+ran1.o: ./ran1.c
+logreg.o: ./nrutil.h ./nrutil.c ./logreg.c
+FindCounts.o: ./FindCounts.c 
+FindGenes.o: ./FindGenes.c
